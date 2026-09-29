@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Image</title>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+    </style>
+</head>
 <body>
 
-<img id="img" width="600">
+    <img id="img" src="" alt="Image">
 
-<script>
-fetch("https://raw.githubusercontent.com/ENGIESG6605/QRCODE/main/image.txt")
-  .then(r => r.text())
-  .then(file => {
-      document.getElementById("img").src =
-        "https://raw.githubusercontent.com/ENGIESG6605/QRCODE/main/" + file.trim();
-  });
-</script>
+    <script>
+        fetch("./image.txt?t=" + Date.now())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Impossible de charger image.txt");
+                }
+                return response.text();
+            })
+            .then(filename => {
+                document.getElementById("img").src =
+                    "./" + filename.trim() + "?t=" + Date.now();
+            })
+            .catch(error => {
+                document.body.innerHTML =
+                    "<h2>Erreur : " + error.message + "</h2>";
+            });
+    </script>
 
 </body>
 </html>
