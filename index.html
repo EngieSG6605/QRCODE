@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Image</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain; /* affiche toute l'image */
+}
+</style>
 </head>
 <body>
 
-    <img id="img" style="max-width:100%;">
+<img id="img" alt="Image">
 
-    <script>
-        fetch("./image.txt?t=" + Date.now())
-        .then(r => r.text())
-        .then(filename => {
-            document.getElementById("img").src =
-                "https://raw.githubusercontent.com/EngieSG6605/QRCODE/main/" +
-                filename.trim();
-        })
-        .catch(err => {
-            document.body.innerHTML = "Erreur : " + err.message;
-        });
-    </script>
+<script>
+fetch("./image.txt?t=" + Date.now())
+    .then(r => r.text())
+    .then(file => {
+        document.getElementById("img").src =
+            file.trim() + "?t=" + Date.now();
+    });
+</script>
 
 </body>
 </html>
