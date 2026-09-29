@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image depuis GitHub</title>
-</head>
+<html>
 <body>
-    <h1>Mon image</h1>
 
-    <img
-        src="https://raw.githubusercontent.com/ENGIESG6605/QRCODE/main/shrek.gif"
-        alt="Image GitHub"
-        width="600">
-</body
+<img id="img" width="600">
+
+<script>
+fetch("https://raw.githubusercontent.com/ENGIESG6605/QRCODE/main/image.txt")
+  .then(r => r.text())
+  .then(file => {
+      document.getElementById("img").src =
+        "https://raw.githubusercontent.com/ENGIESG6605/QRCODE/main/" + file.trim();
+  });
+</script>
+
+</body>
+</html>
